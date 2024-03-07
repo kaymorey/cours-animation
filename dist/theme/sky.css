@@ -1,58 +1,74 @@
 /**
- * Custom theme for reveal.js.
+ * Sky theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
  */
-@import url(./fonts/nunito/nunito.css);
-@import url(./fonts/poppins/poppins.css);
+@import url(https://fonts.googleapis.com/css?family=Quicksand:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+.reveal a {
+  line-height: 1.3em;
+}
+
+section.has-dark-background, section.has-dark-background h1, section.has-dark-background h2, section.has-dark-background h3, section.has-dark-background h4, section.has-dark-background h5, section.has-dark-background h6 {
+  color: #fff;
+}
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
 :root {
-  --background-color: #FFF;
-  --main-font: Poppins, Helvetica, sans-serif;
-  --main-font-size: 37px;
-  --main-color: #40798C;
+  --background-color: #f7fbfc;
+  --main-font: Open Sans, sans-serif;
+  --main-font-size: 40px;
+  --main-color: #333;
   --block-margin: 20px;
   --heading-margin: 0 0 20px 0;
-  --heading-font: Poppins, Helvetica, sans-serif;
-  --heading-color: #40798C;
+  --heading-font: Quicksand, sans-serif;
+  --heading-color: #333;
   --heading-line-height: 1.2;
-  --heading-letter-spacing: normal;
-  --heading-text-transform: none;
+  --heading-letter-spacing: -0.08em;
+  --heading-text-transform: uppercase;
   --heading-text-shadow: none;
-  --heading-font-weight: 700;
+  --heading-font-weight: normal;
   --heading1-text-shadow: none;
-  --heading1-size: 1.7em;
-  --heading2-size: 1.4em;
-  --heading3-size: 1em;
-  --heading4-size: 0.7em;
+  --heading1-size: 3.77em;
+  --heading2-size: 2.11em;
+  --heading3-size: 1.55em;
+  --heading4-size: 1em;
   --code-font: monospace;
-  --link-color: #E05263;
-  --link-color-hover: #d8273c;
-  --selection-background-color: #FF5E99;
+  --link-color: #3b759e;
+  --link-color-hover: #74a7cb;
+  --selection-background-color: #134674;
   --selection-color: #fff;
 }
 
 .reveal-viewport {
-  background: #FFF;
-  background-color: #FFF;
+  background: #add9e4;
+  background: -moz-radial-gradient(center, circle cover, #f7fbfc 0%, #add9e4 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #f7fbfc), color-stop(100%, #add9e4));
+  background: -webkit-radial-gradient(center, circle cover, #f7fbfc 0%, #add9e4 100%);
+  background: -o-radial-gradient(center, circle cover, #f7fbfc 0%, #add9e4 100%);
+  background: -ms-radial-gradient(center, circle cover, #f7fbfc 0%, #add9e4 100%);
+  background: radial-gradient(center, circle cover, #f7fbfc 0%, #add9e4 100%);
+  background-color: #f7fbfc;
 }
 
 .reveal {
-  font-family: "Poppins", Helvetica, sans-serif;
-  font-size: 37px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
   font-weight: normal;
-  color: #40798C;
+  color: #333;
 }
 
 .reveal ::selection {
   color: #fff;
-  background: #FF5E99;
+  background: #134674;
   text-shadow: none;
 }
 
 .reveal ::-moz-selection {
   color: #fff;
-  background: #FF5E99;
+  background: #134674;
   text-shadow: none;
 }
 
@@ -72,30 +88,30 @@
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #40798C;
-  font-family: "Poppins", Helvetica, sans-serif;
-  font-weight: 700;
+  color: #333;
+  font-family: "Quicksand", sans-serif;
+  font-weight: normal;
   line-height: 1.2;
-  letter-spacing: normal;
-  text-transform: "none";
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
   text-shadow: none;
   word-wrap: break-word;
 }
 
 .reveal h1 {
-  font-size: 1.7em;
+  font-size: 3.77em;
 }
 
 .reveal h2 {
-  font-size: 1.4em;
+  font-size: 2.11em;
 }
 
 .reveal h3 {
-  font-size: 1em;
+  font-size: 1.55em;
 }
 
 .reveal h4 {
-  font-size: 0.7em;
+  font-size: 1em;
 }
 
 .reveal h1 {
@@ -284,27 +300,27 @@
  * LINKS
  *********************************************/
 .reveal a {
-  color: #E05263;
+  color: #3b759e;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .reveal a:hover {
-  color: #d8273c;
+  color: #74a7cb;
   text-shadow: none;
   border: none;
 }
 
 .reveal .roll span:after {
   color: #fff;
-  background: #c32336;
+  background: #264c66;
 }
 
 /*********************************************
  * Frame helper
  *********************************************/
 .reveal .r-frame {
-  border: 4px solid #40798C;
+  border: 4px solid #333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -313,7 +329,7 @@
 }
 
 .reveal a:hover .r-frame {
-  border-color: #E05263;
+  border-color: #3b759e;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
 }
 
@@ -321,7 +337,7 @@
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls {
-  color: #E05263;
+  color: #3b759e;
 }
 
 /*********************************************
@@ -329,7 +345,7 @@
  *********************************************/
 .reveal .progress {
   background: rgba(0, 0, 0, 0.2);
-  color: #E05263;
+  color: #3b759e;
 }
 
 /*********************************************
@@ -337,78 +353,6 @@
  *********************************************/
 @media print {
   .backgrounds {
-    background-color: #FFF;
+    background-color: #f7fbfc;
   }
-}
-.header-title {
-  padding-bottom: 1em;
-  text-align: left;
-}
-.header-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 6px;
-  margin-top: 14px;
-  background-color: #E05263;
-}
-
-.reveal ol,
-.reveal dl,
-.reveal ul {
-  font-size: 0.75em;
-  display: inline-block;
-  text-align: left;
-  margin: 0 0 0 1em;
-  line-height: 1.3;
-}
-.reveal ol li,
-.reveal dl li,
-.reveal ul li {
-  margin-bottom: 0.5em;
-}
-.reveal ol li::marker,
-.reveal dl li::marker,
-.reveal ul li::marker {
-  color: #E05263;
-}
-.reveal ol.is-block,
-.reveal dl.is-block,
-.reveal ul.is-block {
-  display: block;
-}
-
-.reveal a {
-  text-decoration: underline;
-}
-
-.reveal .is-transparent {
-  opacity: 0.5;
-}
-
-.reveal .centered {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.reveal .slides section.full,
-.reveal .slides section > section.full {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.col-6 {
-  width: 50%;
 }

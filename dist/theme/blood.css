@@ -1,58 +1,69 @@
 /**
- * Custom theme for reveal.js.
+ * Blood theme for reveal.js
+ * Author: Walther http://github.com/Walther
+ *
+ * Designed to be used with highlight.js theme
+ * "monokai_sublime.css" available from
+ * https://github.com/isagalaev/highlight.js/
+ *
+ * For other themes, change $codeBackground accordingly.
+ *
  */
-@import url(./fonts/nunito/nunito.css);
-@import url(./fonts/poppins/poppins.css);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic,700italic);
+section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 {
+  color: #222;
+}
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
 :root {
-  --background-color: #FFF;
-  --main-font: Poppins, Helvetica, sans-serif;
-  --main-font-size: 37px;
-  --main-color: #40798C;
+  --background-color: #222;
+  --main-font: Ubuntu, sans-serif;
+  --main-font-size: 40px;
+  --main-color: #eee;
   --block-margin: 20px;
   --heading-margin: 0 0 20px 0;
-  --heading-font: Poppins, Helvetica, sans-serif;
-  --heading-color: #40798C;
+  --heading-font: Ubuntu, sans-serif;
+  --heading-color: #eee;
   --heading-line-height: 1.2;
   --heading-letter-spacing: normal;
-  --heading-text-transform: none;
-  --heading-text-shadow: none;
-  --heading-font-weight: 700;
-  --heading1-text-shadow: none;
-  --heading1-size: 1.7em;
-  --heading2-size: 1.4em;
-  --heading3-size: 1em;
-  --heading4-size: 0.7em;
+  --heading-text-transform: uppercase;
+  --heading-text-shadow: 2px 2px 2px #222;
+  --heading-font-weight: normal;
+  --heading1-text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 20px 20px rgba(0, 0, 0, 0.15);
+  --heading1-size: 3.77em;
+  --heading2-size: 2.11em;
+  --heading3-size: 1.55em;
+  --heading4-size: 1em;
   --code-font: monospace;
-  --link-color: #E05263;
-  --link-color-hover: #d8273c;
-  --selection-background-color: #FF5E99;
+  --link-color: #a23;
+  --link-color-hover: #dd5566;
+  --selection-background-color: #a23;
   --selection-color: #fff;
 }
 
 .reveal-viewport {
-  background: #FFF;
-  background-color: #FFF;
+  background: #222;
+  background-color: #222;
 }
 
 .reveal {
-  font-family: "Poppins", Helvetica, sans-serif;
-  font-size: 37px;
+  font-family: Ubuntu, "sans-serif";
+  font-size: 40px;
   font-weight: normal;
-  color: #40798C;
+  color: #eee;
 }
 
 .reveal ::selection {
   color: #fff;
-  background: #FF5E99;
+  background: #a23;
   text-shadow: none;
 }
 
 .reveal ::-moz-selection {
   color: #fff;
-  background: #FF5E99;
+  background: #a23;
   text-shadow: none;
 }
 
@@ -72,34 +83,34 @@
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #40798C;
-  font-family: "Poppins", Helvetica, sans-serif;
-  font-weight: 700;
+  color: #eee;
+  font-family: Ubuntu, "sans-serif";
+  font-weight: normal;
   line-height: 1.2;
   letter-spacing: normal;
-  text-transform: "none";
-  text-shadow: none;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 2px #222;
   word-wrap: break-word;
 }
 
 .reveal h1 {
-  font-size: 1.7em;
+  font-size: 3.77em;
 }
 
 .reveal h2 {
-  font-size: 1.4em;
+  font-size: 2.11em;
 }
 
 .reveal h3 {
-  font-size: 1em;
+  font-size: 1.55em;
 }
 
 .reveal h4 {
-  font-size: 0.7em;
+  font-size: 1em;
 }
 
 .reveal h1 {
-  text-shadow: none;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 20px 20px rgba(0, 0, 0, 0.15);
 }
 
 /*********************************************
@@ -284,27 +295,27 @@
  * LINKS
  *********************************************/
 .reveal a {
-  color: #E05263;
+  color: #a23;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .reveal a:hover {
-  color: #d8273c;
+  color: #dd5566;
   text-shadow: none;
   border: none;
 }
 
 .reveal .roll span:after {
   color: #fff;
-  background: #c32336;
+  background: #6a1520;
 }
 
 /*********************************************
  * Frame helper
  *********************************************/
 .reveal .r-frame {
-  border: 4px solid #40798C;
+  border: 4px solid #eee;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -313,7 +324,7 @@
 }
 
 .reveal a:hover .r-frame {
-  border-color: #E05263;
+  border-color: #a23;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
 }
 
@@ -321,7 +332,7 @@
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls {
-  color: #E05263;
+  color: #a23;
 }
 
 /*********************************************
@@ -329,7 +340,7 @@
  *********************************************/
 .reveal .progress {
   background: rgba(0, 0, 0, 0.2);
-  color: #E05263;
+  color: #a23;
 }
 
 /*********************************************
@@ -337,78 +348,33 @@
  *********************************************/
 @media print {
   .backgrounds {
-    background-color: #FFF;
+    background-color: #222;
   }
 }
-.header-title {
-  padding-bottom: 1em;
-  text-align: left;
-}
-.header-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 6px;
-  margin-top: 14px;
-  background-color: #E05263;
+.reveal p {
+  font-weight: 300;
+  text-shadow: 1px 1px #222;
 }
 
-.reveal ol,
-.reveal dl,
-.reveal ul {
-  font-size: 0.75em;
+section.has-light-background p, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4 {
+  text-shadow: none;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-weight: 700;
+}
+
+.reveal p code {
+  background-color: #23241f;
   display: inline-block;
-  text-align: left;
-  margin: 0 0 0 1em;
-  line-height: 1.3;
-}
-.reveal ol li,
-.reveal dl li,
-.reveal ul li {
-  margin-bottom: 0.5em;
-}
-.reveal ol li::marker,
-.reveal dl li::marker,
-.reveal ul li::marker {
-  color: #E05263;
-}
-.reveal ol.is-block,
-.reveal dl.is-block,
-.reveal ul.is-block {
-  display: block;
+  border-radius: 7px;
 }
 
-.reveal a {
-  text-decoration: underline;
-}
-
-.reveal .is-transparent {
-  opacity: 0.5;
-}
-
-.reveal .centered {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.reveal .slides section.full,
-.reveal .slides section > section.full {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.col-6 {
-  width: 50%;
+.reveal small code {
+  vertical-align: baseline;
 }

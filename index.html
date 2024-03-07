@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Améliorez la qualité de vos animations ✨</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/custom.css" id="theme">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/styles/stackoverflow-light.css" id="highlight-theme">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-color="rgb(64, 121, 140)" style="color: #FFF;">
+          <div style="padding-top: 0.8em; padding-bottom: 0.8em;">
+            <h1 style="color: #FFF;">Améliorez la qualité de vos animations ✨</h1>
+            <img src="images/animation.gif" alt="" width="350">
+          </div>
+          <p>
+            <small>Katia Moreira</small><br>
+            <small>MMI 2 - 01/03/2024</small><br>
+          </p>
+        </section>
+        <section>
+          <h3 class="header-title">Plan du cours</h3>
+
+          <ol>
+            <li>🚀 Optimisez les performances de vos animations</li>
+            <li>✨ Des animations plus naturelles grâce aux principes d'animations</li>
+            <li>⏱️ Les timings et easings à utiliser</li>
+            <li>👩‍💻 Les différentes techniques d'animation et prise en main de GSAP</li>
+          </ol>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)" class="full">
+          <h2 class="slide-title centered" style="color: #FFF;">1. 🚀 Optimisez les performances de vos animations</h2>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>1 animation = 1 succession d'images</li>
+            </ul>
+            <figure>
+              <img src="images/muybridge.jpeg" alt="" width="500">
+              <legend style="font-size: 0.5em;">Décomposition d'un cheval au galop - Eadweard Muybridge - 18 juin 1878</legend>
+            </figure>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>L'oeil humain a besoin d'au moins <strong>12 images par seconde</strong> pour percevoir une notion d'animation</li>
+              <li>Traditionnellement le cinéma fonctionnait avec <strong>24 images par seconde</strong></li>
+              <li>Le nombre d'image par seconde est appelé <strong>FPS</strong> (frames per second)</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Plus le nombre d'images par seconde est <strong>important</strong> plus l'animation va nous paraitre <strong>fluide</strong></li>
+              <li>La majorité des écrans de PC portables, téléphones, tablettes, fonctionnent avec un taux de rafraichissement de <strong>60 Hz</strong></li>
+              <li>Cela signifie qu'ils sont capables d'afficher <strong>60 images par seconde</strong></li>
+            </ul>
+            <img src="images/fps.jpeg" alt="" width="600">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Pour nos animations sur le web on vise donc un miniumum de <strong>60 FPS</strong></li>
+              <li>Si notre animation fait plus de 60 FPS ce ne sera pas perçu sur certains écrans (mais ça peut être utile pour d'autres)</li>
+            </ul>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/pfiHFqnPLZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <aside class="notes">
+            On voit que si le FPS est faible l'animation parait saccadée
+            Le taux de rafraichissement d'un écran est sa capacité à afficher un certain nombre d'images par seconde
+            Si on a une animation à 75FPS elle ne se verra pas sur un écran qui a un taux de 60Hz
+            60 FPS est donc l'animation la plus fuide que l'on peut obtenir
+          </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Pour un film d'animation le nombre de FPS est <strong>constant</strong></li>
+              <li>Sur le web il est <strong>variable</strong> et dépend du temps de calcul du navigateur (il peut mettre 0.04s à calculer une image puis 0.02s pour calculer l'image suivante)</li>
+            </ul>
+            <img src="images/animation2.gif" alt="" width="350">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>On peut calculer le FPS à partir du temps d'affichage moyen d'une image</li>
+              <li>Admettons que le navigateur mette en moyenne <strong>0.04s</strong> pour afficher <strong>une image</strong>, quel est son FPS ? </li>
+            </ul>
+            <img src="images/frame-calcul.png" alt="" width="350">
+            <br>
+            <p class="fragment">FPS = 1 * 1 / 0.04 = 1 / 0.04 = 25 FPS</p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Pour que le FPS de notre animation soit de <strong>60FPS</strong> il faut que le navigateur ne mette pas plus de <strong>16.6ms</strong> en moyenne pour calculer une image <br>(1 / 0.0166 = 60 FPS)</li>
+              <li>Si le FPS est trop bas, notre animation va saccader, on appelle ça <strong>"jank"</strong></li>
+            </ul>
+            <br>
+            <br>
+            <h3>🤔 Alors, comment fait-on <br>pour atteindre ce chiffre ?</h3>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <h3>💡 Il va falloir comprendre comment le navigateur calcule le rendu à afficher pour optimiser la performance de nos animations</h3>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <p><strong>Le "Pixel Pipeline"</strong></p>
+            <ul>
+              <li>Corresponds aux <strong>étapes</strong> par lesquelles le navigateur passe pour afficher un pixel à l'écran</li>
+              <li>Il faut <strong>repasser</strong> par ces étapes lors d'une animation ou lorsque l'on scrolle la page d'un site</li>
+            </ul>
+            <img src="images/pixel-pipeline-full.png" alt="" width="650">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-full.png" alt="" width="650">
+            <ul>
+              <li>Etape <strong>JavaScript</strong> : <strong>traitement du code JS</strong> qui modifie la page (ajout d'un élément dans le DOM, modification du style), des <strong>animations</strong> et transitions CSS</li>
+              <li class="fragment">Etape <strong>Style</strong> : le navigateur défini <strong>quelles règles CSS</strong> appliquer à quels éléments du DOM</li>
+              <li class="fragment">Etape <strong>Layout</strong> : le navigateur détermine <strong>la taille des éléments</strong> et leur position</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-full.png" alt="" width="650">
+            <ul>
+              <li>Etape <strong>Paint</strong> : le navigateur <strong>affiche les pixels</strong> à l'écran en utilisant les styles, dimensions et positions calculées aux étapes précédentes. Il dessine les pixels sur plusieurs couches ou calques</li>
+              <li class="fragment">Etape <strong>Composition</strong> : le navigateur <strong>compose la page</strong> à l'aide des différents calques créés à l'étape précédente</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-full.png" alt="" width="650">
+            <ul>
+              <li>Toutes ces étapes <strong>prennent du temps</strong> au navigateur</li>
+              <li>On n'est pas nécessairement obligés de passer par toutes ces étapes lors du calcul d'une nouvelle image (on ne va peut-être pas modifier la position des éléments)</li>
+              <li>On va donc essayer de <strong>limiter le nombre d'étapes</strong> par lesquelles passer</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline.png" alt="" width="650">
+            <p style="font-size: 0.8em;"><strong>Par exemple : </strong> Si on modifie la <strong>taille</strong> d'un élément (sa width), quelle étape est impactée ?</p>
+            <p style="font-size: 0.8em;" class="fragment">Si on modifie la taille d'un élément on doit recalculer le layout, le paint et la composition.</p>
+            <p style="font-size: 0.8em;" class="fragment">On appelle ça le <strong>reflow</strong></p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-paint.png" alt="" width="650">
+            <p style="font-size: 0.8em;">Si on modifie la <strong>couleur</strong> d'un élément, on doit recalculer le paint et la composition.</p>
+            <p style="font-size: 0.8em;" class="fragment">On appelle ça le <strong>repaint</strong></p>
+            <p style="font-size: 0.8em;" class="fragment">Remarque :</strong> quand on a un reflow on a aussi obligatoirement un repaint.</p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-composition.png" alt="" width="650">
+            <p style="font-size: 0.8em;">Si on modifie <strong>l'opacité</strong> d'un élément, on doit recalculer uniquement la composition.</p>
+            <p style="font-size: 0.8em;" class="fragment">C'est le scénario que l'on prévilégie</p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>En fonction de la propriété CSS que l'on va animer on va donc obliger le navigateur à faire <strong>plus ou moins</strong> de calculs</li>
+              <li>L'idée va donc être de <strong>privilégier</strong> les propriétés CSS qui <strong>évitent</strong> un reflow ou un repaint</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <img src="images/pixel-pipeline-properties.png" alt="" width="680">
+            <p style="font-size: 0.8em;" class="fragment">Le site <a href="https://csstriggers.com/">csstriggers</a> permet de connaitre les étapes du pixel pipeline concernées par une propriété CSS</a></p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <p>➡️ Idéalement on privilégie donc <strong>toujours</strong> les propriétés <strong>transform</strong> et <strong>opacity</strong>.</p>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Ne pas utiliser les propriétés top, left ou width, height mais préférer transform</li>
+            </ul>
+            <div class="d-flex">
+              <div class="col-6">
+                <pre><code data-trim>
+                  // ❌ Don't
+                  .element {
+                    top: 20px;
+                    transition: top 0.2s;
+                  }
+    
+                  .element.move-down {
+                    top: 40px;
+                  }
+                </code></pre>
+              </div>
+              <div class="col-6 fragment">
+                <pre><code data-trim>
+                  // ✅ Do
+                  .element {
+                    top: 20px;
+                    transition: transform 0.2s;
+                  }
+    
+                  .element.move-down {
+                    transform: translateY(20px);
+                  }
+                </code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <p style="font-size: 0.8em;">⚠️ Eviter de mettre la propriété transition à <strong>all</strong> pour contrôler au mieux les propriétés que l'on anime</p>
+            <pre><code data-trim>
+              // ❌ Don't
+              .element {
+                transition: all 0.2s;
+              }
+            </code></pre>
+            <pre><code data-trim>
+              // ✅ Do
+              .element {
+                transition: transform 0.2s;
+              }
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>💡 Comment pourrait-on animer un box-shadow de manière optimale ?</li>
+            </ul>
+            <div class="box"></div>
+            <img src="images/box-shadow.gif" alt="">
+            <p style="font-size: 0.8em;" class="fragment">Pour utiliser opacity, on peut mettre le box-shadow sur un pseudo-élément (<code>::before</code>) et animer son opacité plutôt qu'animer directement le box-shadow</p>
+          </div>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)" class="full">
+          <h2 class="slide-title centered" style="color: #FFF;">2. ✨ Des animations plus naturelles grâce aux principes d'animations</h2>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <div>
+            <p style="font-size: 0.95em;">🎯 <strong>Notre objectif</strong> : rendre nos animations plus naturelles et engageantes.</p>
+          </div>
+          <iframe title="vimeo-player" src="https://player.vimeo.com/video/574898435?h=807da5ce93" width="640" height="360" frameborder="0"    allowfullscreen></iframe>
+          <aside class="notes">
+            Au début quand on commence a créer des animations CSS ou JS on se contente "simplement" de faire bouger nos éléments. Pour aller plus loin il est important de faire en sorte que ces animations soient naturelles et engageantes. Même si nous animons souvent des formes abstraites (des ronds, des carrés, du texte ou des images), leur mouvement, leur vitesse de déplacement, leur accélération/décélération sont des éléments important à travailler pour éviter des animations un peu trop "robotisées" qui ne nous ne semblent pas naturelles.
+          </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Les <strong>"Neuf Sages"</strong> ont participé à la création des principaux films d'animation de Disney</li>
+              <li>Parmi eux Ollie Johnston et Frank Thomas publient en 1981 "The illusion of life" qui détaille <strong>12 principes d'animation</strong></li>
+            </ul>
+            <img src="images/neuf-sages.jpeg" alt="" width="500">
+          </div>
+          <aside class="notes">
+            Ces principes permettent de produire une illusion très réaliste des mouvements des personnages (et des objets) de par leur adhésion aux lois de la physique, et aux réactions et expressions émotionnelles réelles
+          </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+
+          <div>
+            <ul>
+              <li>Ces principes permettent de produire une illusion <strong>très réaliste</strong> des mouvements des personnages (et des objets) de par leur adhésion aux lois de la physique, et aux réactions et expressions émotionnelles réelles.</li>
+            </ul>
+            <img src="images/illusion-of-life.jpeg" alt="" width="300">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Squash and stretch</strong></p>
+
+          <div>
+            <ul>
+              <li>Ce principe permet de souligner <strong>la vitesse, l'élan, le poids et la masse</strong> d'un objet lorsque qu'il se déplace et rencontre un obstacle</li>
+              <li>Un élément qui tombe par exemple aura tendance à <strong>s'étirer (stretch)</strong> avant de toucher le sol puis à <strong>s'écraser (squash)</strong> au moment de l'impact</li>
+            </ul>
+            <img src="images/squash-and-stretch.gif" alt="" width="450">
+          </div>
+          <aside class="notes">
+            La plus au moins grande déformation de l'élément donnera des informations sur sa masse
+            Si on prends 2 opposés, à gauche on pourrait par exemple imaginer que c'est un ballon d'eau qui tombe, à droite une boule de bowling
+            Vous pouvez appliquer ce principe sur vos éléments si vous voulez animer un objet qui tombe ou globalement se déplace et rencontre un obstacle. Cela lui donnera de la "matière" et davantage de réalisme.
+          </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Staging</strong></p>
+
+          <div>
+            <ul>
+              <li>Le staging, la mise en scène, désigne la composition de l'animation. Il s'agit pour un utilisateur de <strong>comprendre ce qu'il passe</strong> lors de l'animation.</li>
+            </ul>
+            <a href="https://www.youtube.com/watch?v=u-SXLaQGg50&t=24" target="_blank"><img src="images/staging.gif" alt="" width="500"></a>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Staging</strong></p>
+
+          <div>
+            <ul>
+              <li>
+                Il en découle deux grands principes d'animation sur le web :
+                <ol style="padding-top: 1em;">
+                  <li style="font-size: 1.2em;">L'échelonnement ou <strong>staggering</strong></li>
+                  <li style="font-size: 1.2em;">La composition ou <strong>composing</strong></li>
+                </ol>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Staging - staggering</strong></p>
+
+          <div>
+            <ul>
+              <li>
+                C'est le fait d'afficher les éléments les uns après les autres plutôt que tous en même temps.
+              </li>
+            </ul>
+            <div class="d-flex">
+              <div class="fragment">
+                <img src="images/staggering-nope.gif" alt="">
+              </div>
+              <div class="fragment">
+                <img src="images/staggering-yep.gif" alt="">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Staging - composing</strong></p>
+
+          <div>
+            <ul>
+              <li>
+                C'est le fait d'éviter d'animer 2 paramètres en même temps. 
+              </li>
+            </ul>
+            <div class="fragment">
+              <img src="images/composing.gif" alt="" width="700">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Slow in and slow out</strong></p>
+
+          <div>
+            <ul>
+              <li><strong>L'easing</strong> est une fonction mathématique qui décrit la façon dont une valeur numérique évolue</li>
+            </ul>
+            <div>
+              <img src="images/easing.png" alt="" width="250">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Slow in and slow out</strong></p>
+          <div class="d-flex" style="align-items: center;">
+            <div class="col-6">
+              <ul>
+                <li>Slow in : accélération progressive</li>
+                <li>Slow out : décélération progressive</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <img src="images/easings.svg" alt="" width="400">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Slow in and slow out</strong></p>
+
+          <div>
+            <ul>
+              <li>Dans la vie, les objets ne se déplacent pas instantanément et ne bougent pratiquement <strong>jamais à vitesse constante</strong></li>
+              <li>Une voiture qui démarre par exemple, va <strong>accéler progressivement (slow in)</strong></li>
+              <li>Lorsqu'elle va s'arrêter elle va <strong>decélérer progressivement (slow&nbsp;out)</strong></li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Slow in and slow out</strong></p>
+
+          <div>
+            <img src="images/slowinout.gif" alt="" width="600">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Timing</strong></p>
+
+          <div>
+            <ul>
+              <li>Les objets doivent se déplacer à des vitesses <strong>crédibles</strong> par rapport à leur taille et à leur masse.</li>
+              <li>On contrôle le timing des objets par rapport à leurs <strong>tailles relatives</strong>, ainsi que par la <strong>durée de l’animation</strong></li>
+            </ul>
+            <div>
+              <img src="images/timing.gif" alt="" width="450">
+            </div>
+          </div>
+          <aside class="notes">
+            Un semi-remorque accélère et décélère plus lentement et de manière plus homogène qu’une Ferrari, qui peut accélérer en un clin d’œil et s’arrêter quasiment sur place = importance du easing également
+          </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Optimisez les performances de vos animations</h3>
+          <p><strong>Les principes d'animation en vidéo</strong></p>
+
+          <div>
+            <a href="https://www.youtube.com/watch?v=uDqjIdI4bF4" target="_blank">
+              <img src="images/principles-video.png" alt="" width="700">
+            </a>
+          </div>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)" class="full">
+          <h2 class="slide-title centered" style="color: #FFF;">3. ⏱️ Les timings et easings à utiliser</h2>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Au hover : ease out</strong></p>
+
+          <div>
+            <ul>
+              <li>On va <strong>éviter de ralentir</strong> le mouvement <strong>au déclenchement</strong> de l'animation en utilisant un ease in. L'utilisateur risquerait de ressentir un <strong>délai</strong> entre le passage de sa souris et le début de l'animation (et ça risque d'altérer le First Input Delay)</li>
+            </ul>
+
+            <div class="fragment">
+              <img src="images/hover-easings.gif" alt="">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Pour un élément qui arrive dans l'écran : ease-out</strong></p>
+
+          <div>
+            <ul>
+              <li>Lorsqu'un élément <strong>arrive depuis l'extérieur de l'écran</strong> sa vitesse est constante puis <strong>diminue progressivement</strong> pour s'arrêter totalement</li>
+            </ul>
+
+            <div class="fragment">
+              <img src="images/element-ease-out.gif" alt="" width="700">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Pour un élément qui sort de l'écran : ease-in</strong></p>
+
+          <div>
+            <ul>
+              <li>Lorsqu'un élément <strong>sort de l'écran</strong> il va démarrer puis <strong>accélérer progressivement</strong> jusqu'à ne plus être visible</li>
+            </ul>
+
+            <div class="fragment">
+              <img src="images/element-ease-in.gif" alt="" width="700">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Le easing le plus courant : ease-in-out</strong></p>
+
+          <div>
+            <ul>
+              <li>L'élément <strong>accélère puis décélère</strong> progressivement </li>
+              <li>C'est le easing le plus répandu : utilisez celui-ci si vous avez un doute</li>
+            </ul>
+
+            <div class="fragment">
+              <img src="images/element-ease-in-out.gif" alt="" width="700">
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Le easing par défaut en css</strong></p>
+
+          <div>
+            <ul>
+              <li>Le ease par défaut représente la fonction <code>cubic-bezier(0.25, 0.1, 0.25, 1.0)</code></li>
+              <li>C'est une fonction <strong>similaire à ease-in-out</strong> mais qui accélère plus rapidement au début</li>
+            </ul>
+
+            <img src="images/default-ease.png" alt="" width="220">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Trouver facilement un easing sur <a href="https://easings.net/fr" target="_blank">easings.net</a></strong></p>
+
+          <div>
+            <img src="images/easings.png" alt="">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Timing : staggering</strong></p>
+
+          <ul>
+            <li>Indiquez un <strong>délai court</strong> entre les éléments, 100ms est une bonne durée</li>
+          </ul>
+
+          <div class="fragment">
+            <img src="images/staggering-timing.gif" alt="" width="650">
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Les timings et easings à utiliser</h3>
+          <p><strong>Les différents timings</strong></p>
+
+          <ul>
+            <li>La durée d'une animation devrait varier en général <strong>de 100ms à 500ms</strong></li>
+          </ul>
+
+          <div>
+            <img src="images/timings.gif" alt="" width="650">
+          </div>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)" class="full">
+          <h2 class="slide-title centered" style="color: #FFF;">4. 👩‍💻 Les différentes techniques d'animation et prise en main de GSAP</h2>
+        </section>
+        <section>
+          <h3 class="header-title">Les différentes techniques d'animation</h3>
+          <p style="font-size: 0.9em;">Il existe <strong>différentes manières</strong> de créer des animations sur le web.<br>On peut déjà citer les techniques d'animations <strong>natives</strong></p>
+          <ul>
+            <li>Les transitions CSS</li>
+            <li>Les keyframes CSS</li>
+            <li>Web Animations API</li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Les différentes techniques d'animation</h3>
+          <p style="font-size: 0.9em;">Il existe également un certain nombre de <strong>librairies JS</strong></p>
+          <ul>
+            <li><strong>Framer motion</strong> pour ReactJS</li>
+            <li><strong>@vueuse/motion</strong> pour VueJS</li>
+            <li>Svelte et Angular proposent des librairies d'animations intégrées dans leurs outils</li>
+            <li>GSAP, AnimeJS, Motion One... comme librairies <strong>VanillaJS</strong></li>
+          </ul>
+            <aside class="notes">
+              - Techniques d'animation natives
+              - transitions
+              - keyframes
+              - web animation API
+            - Librairies JavaScript
+              - APIs intégrées
+                - Vue : Transition et TransitionGroup
+                - React : /
+                - Svelte : plein
+                - Angular : animations
+              - Librairies
+                - React : Framer motion
+                - Vue : @vueuse/motion
+                - VanillaJS
+                  - GSAP : la référence
+                  - AnimeJS : alternative à GSAP, légère et polyvalente
+                  - Motion One : Web Animation API améliorée
+            - Pour aller plus loin :
+              - Lottie
+              - Canvas (2D et WebGL)
+            </aside>
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+
+          <ul>
+            <li>GreenSock Animation Platform (GSAP) est une librairie JavaScript qui permet de créer facilement des animations sur le web</li>
+          </ul>
+
+          <img src="images/gsap.jpeg" alt="" width="200">
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Créer une animation</h4>
+
+          <pre><code data-trim>
+            gsap.to(".box", { x: 200 })
+          </code></pre>
+
+          <img src="images/gsap-syntax.png" alt="" width="500">
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Les différentes méthodes</h4>
+
+          <ul>
+            <li><code>gsap.to()</code> : animer <strong>vers</strong>, on indique les propriétés d'arrivée</li>
+            <li><code>gsap.from()</code> : animer <strong>depuis</strong>, on indique les propriétés de départ</li>
+            <li><code>gsap.fromTo()</code> : animer <strong>depuis et vers</strong>, on indique les propriétés de départ et d'arrivée</li>
+            <li><code>gsap.set()</code> : permet d'indiquer du style à appliquer sans animation</li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Ce que l'on peut animer</h4>
+
+          <ul>
+            <li>Les propriétés CSS (⚠️ privilégier toujours les animations des propriétés CSS transform et opacity)</li>
+            <li>Les attributs SVG</li>
+            <li>➡️ Tout ce que l'on peut <strong>modifier en JavaScript</strong></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Exemple d'une animation</h4>
+
+          <pre><code data-trim>
+            gsap.to(".box", { 
+              duration: 2,
+              x: 200,
+              rotation: 360,
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Propriétés spéciales</h4>
+          <table cellpadding="10" cellspacing="0" style="font-size: 0.7em;">
+            <tbody>
+              <tr>
+                <th>Propriété</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>duration</td>
+                <td>Durée de l'animation (en secondes). Par défaut: 0.5</td>
+              </tr>
+              <tr>
+                <td>delay</td>
+                <td>Délai avant le démarrage de l'animation (en secondes)</td>
+              </tr>
+              <tr>
+                <td>repeat</td>
+                <td>Le nombre de fois que l'animation se répète</td>
+              </tr>
+              <tr>
+                <td>yoyo</td>
+                <td>Si elle vaut true l'animation se jouera dans la direction opposée (comme un yoyo). Par défaut: false</td>
+              </tr>
+              <tr>
+                <td>stagger</td>
+                <td>Temps (en secondes entre le début de l'animation de chacun des éléments)</td>
+              </tr>
+              <tr>
+                <td>ease</td>
+                <td>Fonction d'easing utilisée. Par défaut: "power1.out"</td>
+              </tr>
+              <tr>
+                <td>onComplete</td>
+                <td>Une fonction qui se lance une fois que l'animation a été complétée</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h3 class="header-title">Librairie d'animation GSAP</h3>
+          <h4>Timelines</h4>
+
+          <pre><code data-trim>
+            // create a timeline
+            let tl = gsap.timeline()
+
+            // add the tweens to the timeline - Note we're using tl.to not gsap.to
+            tl.to(".green", { x: 600, duration: 2 });
+            tl.to(".purple", { x: 600, duration: 1 });
+            tl.to(".orange", { x: 600, duration: 1 });
+          </code></pre>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)" class="full">
+          <div class="centered">
+            <h2 style="color: #FFF;">C'est l'heure de l'exercice 🤓</h2>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>1. Reproduire une animation de loader</strong></p>
+          <video controls loop>
+            <source src="videos/exercice1.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>1. Reproduire une animation de loader</strong></p>
+          <pre><code data-trim class="javascript">
+            gsap.to('.dot', {
+              y: 20,
+              alpha: 1,
+              duration: 0.3,
+              stagger: 0.2,
+              repeat: -1,
+              repeatDelay: 2
+            })
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>2. Reproduire une animation plus complexe avec une timeline</strong></p>
+          <video controls loop>
+            <source src="videos/exercice2.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>2. Reproduire une animation plus complexe avec une timeline</strong></p>
+          <pre><code data-trim class="javascript">
+            const tl = gsap.timeline({
+              delay: 1,
+              repeatDelay: 3,
+              repeat: -1
+            })
+            
+            tl.from('.js-title', {
+              yPercent: 150,
+              duration: 0.4,
+              ease: 'power1.out'
+            })
+            tl.from('.js-text', {
+              opacity: 0,
+              y: 40,
+              duration: 0.4,
+              ease: 'power1.out'
+            }, '<0.25')
+            tl.to('.js-img-overlay', {
+              scaleX: 0,
+              duration: 0.6,
+              ease: 'power2.inOut'
+            }, '<0.25')
+            tl.to('.js-img', {
+              scale: 1.2,
+              duration: 0.8,
+              ease: 'power1.out'
+            }, '<0.25')
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">Liens utiles</h3>
+
+          <div>
+            <p style="font-size: 0.8em;"><strong>Présentations</strong></p>
+            <ul style="width: 800px;">
+              <li>
+                <a href="https://fr.slideshare.net/tzilliox/les-performances-de-rendu-css">Les performances de rendu CSS</a>
+              </li>
+              <li>
+                <a href="https://guillaumegouessan.com/talk/move/">Making things move</a>
+              </li>
+              <li>
+                <a href="https://www.paris-web.fr/2023/conferences/du-css-aux-shaders-webgl-panorama-des-techniques-danimation-en-2023.php">Du CSS aux shaders WebGL : panorama des techniques d’animation en 2023</a>
+              </li>
+            </ul>
+            <p style="font-size: 0.8em;"><strong>Articles</strong></p>
+            <ul style="width: 800px;">
+              <li>
+                <a href="https://web.dev/rendering-performance/">Rendering performance</a>
+              </li>
+              <li>
+                <a href="https://openclassrooms.com/fr/courses/5919246-creez-des-animations-css-modernes">Créez des animations css modernes</a>
+              </li>
+              <li>
+                <a href="https://uxdesign.cc/the-ultimate-guide-to-proper-use-of-animation-in-ux-10bd98614fa9">The ultimate guide to proper use of animation in UX</a>
+              </li>
+            </ul>
+            </ul>
+          </div>
+        </section>
+        <section data-background-color="rgb(64, 121, 140)">
+          <h2 style="padding-top: 20px; color: #FFF; line-height: 1.4em;">Merci pour votre attention 👩‍💻👨‍💻 !</h2>
+          <p style="color: #FFF; padding-top: 25px;">
+            Une question ?<br>
+          </p>
+          <ul>
+            <li>
+              🐦
+              <a style="color: #FFF;" href="https://twitter.com/kaymorey">Twitter @kaymorey</a>
+            </li>
+            <li>
+              💼
+              <a style="color: #FFF;" href="https://www.linkedin.com/in/katiamoreira/">Linkedin</a>
+            </li>
+            <li>
+              📧
+              <a style="color: #FFF;" href="mailto:bonjour@katiamoreira.fr">bonjour@katiamoreira.fr</a>
+            </li>
+            <li>
+              👾 <span style="color: #FFF;">Retrouvez-moi sur discord</span>
+            </li>
+          </ul>
+        </section>
+        <!-- Montrer un exemple de fonction bullshit (genre x2)
+        puis introduire les fonctions SASS
+        puis montrer la fonction utile qui darken ou lighten une couleur
+        Je pourrais leur faire faire en exercice -->
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+      });
+    </script>
+  </body>
+</html>

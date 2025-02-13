@@ -23,7 +23,7 @@
           </div>
           <p>
             <small>Katia Moreira</small><br>
-            <small>MMI 2 - 01/03/2024</small><br>
+            <small>MMI 2 - 13/02/2025</small><br>
           </p>
         </section>
         <section>
@@ -122,7 +122,7 @@
           <div>
             <ul>
               <li>Pour que le FPS de notre animation soit de <strong>60FPS</strong> il faut que le navigateur ne mette pas plus de <strong>16.6ms</strong> en moyenne pour calculer une image <br>(1 / 0.0166 = 60 FPS)</li>
-              <li>Si le FPS est trop bas, notre animation va saccader, on appelle ça <strong>"jank"</strong></li>
+              <li>Si le FPS est trop bas, notre animation va saccader, on appelle ça des<strong>"jank"</strong></li>
             </ul>
             <br>
             <br>
@@ -815,6 +815,33 @@
               duration: 0.8,
               ease: 'power1.out'
             }, '<0.25')
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>3. Créer une animation de texte</strong></p>
+          <ul>
+            <li>A l'aide de la librairie <a href="https://splitting.js.org/">Splitting</a> reproduisez l'animation suivante</li>
+            <li>Vous pouvez utiliser GSAP ou, encore mieux, <strong>une animation CSS</strong></li>
+          </ul>
+          <video controls loop>
+            <source src="videos/exercice3.mp4" type="video/mp4">
+          </video>
+        </section>
+        <section>
+          <h3 class="header-title">C'est l'heure de l'exercice 🤓</h3>
+          <p style="font-size: 0.9em;"><strong>3. Créer une animation de texte</strong></p>
+          <pre><code data-trim class="css">
+            .word {
+              overflow: hidden;
+            }
+            
+            .char {
+              opacity: 0;
+              animation: slide-in 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+              animation-delay: calc(0.04s * var(--char-index));
+              animation-fill-mode: forwards;
+            }
           </code></pre>
         </section>
         <section>
